@@ -107,7 +107,7 @@ public class saferegister extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("forget your password to set it up.");
+        jLabel7.setText("forget your password, to reset it again.");
 
         Verify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
