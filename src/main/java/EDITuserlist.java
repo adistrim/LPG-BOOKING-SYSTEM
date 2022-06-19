@@ -7,8 +7,13 @@
  *
  * @author aditya
  */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 public class EDITuserlist extends javax.swing.JFrame {
 
@@ -17,6 +22,28 @@ public class EDITuserlist extends javax.swing.JFrame {
      */
     public EDITuserlist() {
         initComponents();
+        try {
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+            Statement st = con.createStatement();
+            String sql = "select * from user;";
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                String username = rs.getString("username");
+                String name = rs.getString("name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                
+                String tbData[] = {username,name,mobile,email,address};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
+                tblModel.addRow(tbData);
+                
+                
+            }
+            con.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } 
     }
 
     /**
@@ -228,7 +255,7 @@ public class EDITuserlist extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
                 .addContainerGap())
         );
@@ -245,59 +272,12 @@ public class EDITuserlist extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "S. No.", "Username", "Name", "Mobile", "Orders", "Address"
+                "Username", "Name", "Mobile", "email", "Address"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane2.setViewportView(jTable2);
 
         jLabel7.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
@@ -324,10 +304,10 @@ public class EDITuserlist extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

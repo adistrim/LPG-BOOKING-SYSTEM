@@ -1,5 +1,8 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,10 +15,32 @@ import javax.swing.JOptionPane;
 public class userlist extends javax.swing.JFrame {
 
     /**
-     * Creates new form userlist
+     * Creates new form 
      */
     public userlist() {
         initComponents();
+        try {
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+            Statement st = con.createStatement();
+            String sql = "select * from user;";
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                String username = rs.getString("username");
+                String name = rs.getString("name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                
+                String tbData[] = {username,name,mobile,email,address};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                tblModel.addRow(tbData);
+                
+                
+            }
+            con.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }  
     }
 
     /**
@@ -237,7 +262,7 @@ public class userlist extends javax.swing.JFrame {
                 .addComponent(jButton8)
                 .addGap(18, 18, 18)
                 .addComponent(jButton10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(jButton6)
                 .addContainerGap())
         );
@@ -254,53 +279,14 @@ public class userlist extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "S. No.", "Username", "Name", "Mobile", "Orders", "Address"
+                "Username", "Name", "Mobile", "email", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -343,7 +329,7 @@ public class userlist extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)

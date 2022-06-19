@@ -242,7 +242,7 @@ public class UserRegistration extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 620));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night_blured.jpeg")); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, -1, 620));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,7 +289,7 @@ public class UserRegistration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nametextActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         
         String username = usernametext.getText();
@@ -312,11 +312,14 @@ public class UserRegistration extends javax.swing.JFrame {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Successfully Updated");
 
+            ConnectionProvider cp = new ConnectionProvider();
+//            cp.createUserSpecficTable(username);
+
         }
         catch(Exception e){
             JOptionPane.showConfirmDialog(null, e);
         }
-        } 
+        }
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

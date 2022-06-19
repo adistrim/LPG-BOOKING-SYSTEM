@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.*;
@@ -36,7 +37,7 @@ public class addnewuser extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         usernametext = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        nametext1 = new javax.swing.JTextField();
+        nametext = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         mobiletext = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -91,10 +92,10 @@ public class addnewuser extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
 
-        nametext1.setFont(new java.awt.Font("Georgia", 0, 13)); // NOI18N
-        nametext1.addActionListener(new java.awt.event.ActionListener() {
+        nametext.setFont(new java.awt.Font("Georgia", 0, 13)); // NOI18N
+        nametext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nametext1ActionPerformed(evt);
+                nametextActionPerformed(evt);
             }
         });
 
@@ -186,7 +187,7 @@ public class addnewuser extends javax.swing.JFrame {
                                     .addComponent(jPasswordField2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(emailtext, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(mobiletext, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(nametext1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(nametext, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(usernametext, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(addresstext))
                                 .addGap(116, 116, 116))
@@ -209,7 +210,7 @@ public class addnewuser extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nametext1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nametext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -259,7 +260,7 @@ public class addnewuser extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 620));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night_blured.jpeg")); // NOI18N
         jLabel4.setText("jLabel4");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -272,9 +273,9 @@ public class addnewuser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernametextActionPerformed
 
-    private void nametext1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametext1ActionPerformed
+    private void nametextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nametext1ActionPerformed
+    }//GEN-LAST:event_nametextActionPerformed
 
     private void emailtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtextActionPerformed
         // TODO add your handling code here:
@@ -299,13 +300,14 @@ public class addnewuser extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String username = nametext1.getText();
-        String name = usernametext.getText();
+        String username = usernametext.getText();
+        String name = nametext.getText();
         String mobile = mobiletext.getText();
         String email = emailtext.getText();
         String address = addresstext.getText();
-        String password = jPasswordField1.getText();
-        
+        try{
+            SecurePassword sp = new SecurePassword();
+            String password = sp.getSHA(jPasswordField1.getText());
         try{
             Connection con = ConnectionProvider.getCon();
             PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?)");
@@ -317,10 +319,14 @@ public class addnewuser extends javax.swing.JFrame {
             ps.setString(6, password);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Successfully Updated");
-            
+
         }
         catch(Exception e){
             JOptionPane.showConfirmDialog(null, e);
+        }
+        } 
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
 //        setVisible(false);
 //        new admin_saferegister().setVisible(true);
@@ -384,7 +390,7 @@ public class addnewuser extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField mobiletext;
-    private javax.swing.JTextField nametext1;
+    private javax.swing.JTextField nametext;
     private javax.swing.JTextField usernametext;
     // End of variables declaration//GEN-END:variables
 }

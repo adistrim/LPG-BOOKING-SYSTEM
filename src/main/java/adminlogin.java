@@ -103,9 +103,19 @@ public class adminlogin extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton4.setText("Delivery partner");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton5.setText("Service");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/gas-cylinder (4).png")); // NOI18N
 
@@ -299,6 +309,18 @@ public class adminlogin extends javax.swing.JFrame {
     private void VerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_VerifyActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new deliverylogin().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new servicelogin().setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
