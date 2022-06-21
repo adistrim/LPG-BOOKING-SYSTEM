@@ -10,7 +10,7 @@
 public class solvedpanel extends javax.swing.JFrame {
 
     /**
-     * Creates new form solvedpanel
+     * Creates new form 
      */
     public solvedpanel() {
         initComponents();

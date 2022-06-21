@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class Home_Page extends javax.swing.JFrame {
+    
 
         Captcha cap = new Captcha();
 
@@ -330,6 +331,9 @@ public class Home_Page extends javax.swing.JFrame {
 
         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
                 // TODO add your handling code here:
+                
+                String username = usernametextfield.getText();
+                
                 try {
                 if(cap.Validate(captcha, Verify.getText())){
                     if (usernametextfield.getText().length() == 0) // Checking for empty field
@@ -346,7 +350,7 @@ public class Home_Page extends javax.swing.JFrame {
                         
                         if (validate_login(user, password)){
                             setVisible(false);
-                            new UserHome().setVisible(true);
+                            new UserHome(username).setVisible(true);
                         }else{
                             JOptionPane.showMessageDialog(null, "<html><b style=\"color: red; font-size:10px\">Incorrect <br> Username or Password</b></html>","show",JOptionPane.INFORMATION_MESSAGE);
                         }
@@ -355,7 +359,6 @@ public class Home_Page extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Wrong Captcha");
             }
         }catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         }
     }
 
@@ -441,7 +444,7 @@ public class Home_Page extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField usernametextfield;
+    public static javax.swing.JTextField usernametextfield;
     // End of variables declaration//GEN-END:variables
         private boolean validate_login(String username, String password) {
 
