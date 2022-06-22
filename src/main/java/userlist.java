@@ -13,12 +13,12 @@ import javax.swing.table.DefaultTableModel;
  * @author aditya
  */
 public class userlist extends javax.swing.JFrame {
-
     /**
      * Creates new form 
      */
     public userlist() {
         initComponents();
+        
         try {
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
             Statement st = con.createStatement();
@@ -30,18 +30,17 @@ public class userlist extends javax.swing.JFrame {
                 String mobile = rs.getString("mobile");
                 String email = rs.getString("email");
                 String address = rs.getString("address");
-                
-                String tbData[] = {username,name,mobile,email,address};
+                        
+                        String tbData[] = {username,name,mobile,email,address};
                 DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
                 tblModel.addRow(tbData);
-                
-                
-            }
-            con.close();
-        } catch (Exception e){
+                        
+                }
+        }
+        catch (SQLException e){
             System.out.println(e.getMessage());
-        }  
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

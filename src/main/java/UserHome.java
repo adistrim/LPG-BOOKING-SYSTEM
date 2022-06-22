@@ -1,4 +1,6 @@
 
+import java.awt.HeadlessException;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.*;
@@ -197,8 +199,42 @@ public String UserN = Home_Page.usernametextfield.getText();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
-        new Home_Page().setVisible(true);
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from user where username='"+UserN+"'");
+            while(rs.next()){
+                
+//                String date = rs.getString(2);
+                String category = jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+                String address = rs.getString(5);
+                String pending = "pending";
+                try{
+//                        Connection con = ConnectionProvider.getCon();
+                    PreparedStatement ps = con.prepareStatement("insert into "+UserN+" (category, address, delivery) value(?,?,?)");
+                    ps.setString(1, category);
+                    ps.setString(2, address);
+                    ps.setString(3, pending);
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Successfully ordered");
+
+                    }
+                    catch(HeadlessException | SQLException e){
+                    JOptionPane.showConfirmDialog(null, e);
+                    }
+                
+                
+                
+                
+                
+            }
+        }
+        catch(SQLException e){
+        }
+ 
+//        setVisible(false);
+//        new Home_Page().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

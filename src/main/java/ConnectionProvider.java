@@ -7,6 +7,7 @@
  *
  * @author aditya
  */
+
 import java.sql.*;
 
 public class ConnectionProvider {
@@ -16,23 +17,26 @@ public class ConnectionProvider {
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "adiadmin123");
             return con;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             return null;
         }
     }
 
-//    public void createUserSpecficTable(String tableName) throws SQLException {
-//        Connection conn = getCon();
-//        Statement stmt = conn.createStatement();
-//
-//        String sql = String.format("CREATE TABLE IF NOT EXISTS %s (" +
-//        " ID                 INT               PRIMARY KEY       AUTO_INCREMENT    , " +
-//        " NAME               VARCHAR(255)                        NOT NULL          , " +
-//        " USERNAME           VARCHAR(255)                        NOT NULL          , " +
-//        " EMAIL              VARCHAR(255)                        NOT NULL          , " +
-//        " PHONE              VARCHAR(255)                        NOT NULL          , " +
-//        " PASSWORD           VARCHAR(255)                        NOT NULL);", tableName);
-//        stmt.executeUpdate(sql);
-//        System.out.println("Created user specific table in given database...");
-//    }
+    public void createUserSpecficTable(String tableName) throws SQLException {
+        Connection conn = getCon();
+        Statement stmt = conn.createStatement();
+
+        String sql = String.format("CREATE TABLE IF NOT EXISTS %s (" +
+        " ID                INT                                 NOT NULL        AUTO_INCREMENT          PRIMARY KEY , " +
+        " category          VARCHAR(255)                        NULL          , " +
+        " delivery          VARCHAR(255)                        NULL          , " +
+        " deliveredby       VARCHAR(255)                        NULL          , " +
+        " address           VARCHAR(255)                        NULL          , " +
+        " complain          VARCHAR(255)                        NULL          , " +
+        " issuesolved       VARCHAR(255)                        NULL          , " +
+        " revenue           INT(255)                            NULL);", tableName);
+        stmt.executeUpdate(sql);
+        System.out.println("Created user specific table in given database...");
+        
+    }
 }

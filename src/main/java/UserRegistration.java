@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import java.awt.HeadlessException;
 import static java.lang.Math.round;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
@@ -379,16 +380,15 @@ public class UserRegistration extends javax.swing.JFrame {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Successfully Updated");
 
-//            ConnectionProvider cp = new ConnectionProvider();
-//            cp.createUserSpecficTable(username);
+            ConnectionProvider cp = new ConnectionProvider();
+            cp.createUserSpecficTable(username);
 
         }
-        catch(Exception e){
+        catch(HeadlessException | SQLException e){
             JOptionPane.showConfirmDialog(null, e);
         }
         }
         catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         }
         
         

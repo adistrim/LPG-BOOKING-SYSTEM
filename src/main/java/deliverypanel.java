@@ -7,16 +7,65 @@
  *
  * @author aditya
  */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class deliverypanel extends javax.swing.JFrame {
-
+public static String username;
     /**
-     * Creates new form deliverypanel
+     * Creates new form
      */
     public deliverypanel() {
         initComponents();
+        
+        try {
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+            Statement st = con.createStatement();
+            String sql = "select * from user;";
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                username = rs.getString("username");
+                String name = rs.getString("name");
+                String mobile = rs.getString("mobile");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                try{
+            
+                        Connection newcon =DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+                        Statement newst = newcon.createStatement();
+                        String newsql = "select * from "+username+";";
+                        ResultSet newrs = newst.executeQuery(newsql);
+                        while(newrs.next()){
+                        
+                        String category = newrs.getString("category");
+                        String delivery = newrs.getString("delivery");
+                        
+                        if ("pending".equals(delivery)){
+                        
+                            String tbData[] = {username,name,mobile,email,address,category,delivery};
+                            DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                            tblModel.addRow(tbData);
+                            
+                        } else{
+                            System.out.println("Nahi kar raha mai print table me kuch bhi :)");
+                            }   
+                        
+                        }
+                }
+                catch (SQLException e){
+                System.out.println(e.getMessage());
+                }
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -47,49 +96,10 @@ public class deliverypanel extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Username", "Name", "Mobile", "Email", "Address", "Category", "Status"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -224,9 +234,7 @@ public class deliverypanel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
