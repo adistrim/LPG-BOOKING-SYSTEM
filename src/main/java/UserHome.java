@@ -210,14 +210,24 @@ public String UserN = Home_Page.usernametextfield.getText();
                 String category = jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
                 String address = rs.getString(5);
                 String pending = "pending";
+               
                 try{
 //                        Connection con = ConnectionProvider.getCon();
                     PreparedStatement ps = con.prepareStatement("insert into "+UserN+" (category, address, delivery) value(?,?,?)");
                     ps.setString(1, category);
                     ps.setString(2, address);
                     ps.setString(3, pending);
-                    ps.executeUpdate();
+//                    ps.executeUpdate();
+                    
+                    PreparedStatement newps = con.prepareStatement("update user set lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
+//                    newps.setString(1, pending);
+//                    newps.executeUpdate();
+                    
+                    System.out.println(newps);
+
+
                     JOptionPane.showMessageDialog(null, "Successfully ordered");
+                    
 
                     }
                     catch(HeadlessException | SQLException e){

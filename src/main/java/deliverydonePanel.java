@@ -156,11 +156,11 @@ public class deliverydonePanel extends javax.swing.JFrame {
             
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs","root","adiadmin123");
             Statement st = con.createStatement();
-//            String sql = "update "+jTextField1.getText()+" set delivery='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', deliveredby='"+jTextField2.getText()+"', revenue='"+jTextField3.getText()+"' where ID='"+jTextField4.getText()+"';";
+            String sql = "update "+jTextField1.getText()+" set delivery='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', deliveredby='"+jTextField2.getText()+"', revenue='"+jTextField3.getText()+"' where ID='"+jTextField4.getText()+"';";
             
-//            st.executeUpdate(sql);
+            st.executeUpdate(sql);
             
-            String newsql = "UPDATE user SET revenue = revenue + "+jTextField3.getText()+" WHERE username='"+jTextField1.getText()+"';";
+            String newsql = "UPDATE user SET revenue = revenue + "+jTextField3.getText()+", lastdelivery = '"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"' WHERE username='"+jTextField1.getText()+"';";
             
             System.out.println(newsql);
             
@@ -169,7 +169,6 @@ public class deliverydonePanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Successfully Updated");
             
             setVisible(false);
-            
             
         } catch (HeadlessException | SQLException e){
         
