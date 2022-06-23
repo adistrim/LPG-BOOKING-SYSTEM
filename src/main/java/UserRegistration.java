@@ -370,13 +370,14 @@ public class UserRegistration extends javax.swing.JFrame {
             String password = sp.getSHA(jPasswordField1.getText());
         try{
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?,?)");
             ps.setString(1, username);
             ps.setString(2, name);
             ps.setString(3, mobile);
             ps.setString(4, email);
             ps.setString(5, address);
             ps.setString(6, password);
+            ps.setString(7, null);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Successfully Updated");
 

@@ -1,4 +1,3 @@
-
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,6 +46,8 @@ public class deliverydonePanel extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(535, 300));
@@ -85,7 +86,7 @@ public class deliverydonePanel extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jLabel4.setText("Delivery done by?");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 289, -1));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 180, -1));
 
         jButton1.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton1.setText("Update");
@@ -100,15 +101,26 @@ public class deliverydonePanel extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jLabel6.setText("Delivery ID");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jLabel6.setText("Revenue");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 150, -1));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 80, -1));
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 150, -1));
+
+        jLabel7.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
+        jLabel7.setText("Delivery ID");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,15 +153,21 @@ public class deliverydonePanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+            
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs","root","adiadmin123");
             Statement st = con.createStatement();
-            String sql = "update "+jTextField1.getText()+"set delivery = 'completed' where ID='"+jTextField3.getText()+"' ;";
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                
-            }
+//            String sql = "update "+jTextField1.getText()+" set delivery='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', deliveredby='"+jTextField2.getText()+"', revenue='"+jTextField3.getText()+"' where ID='"+jTextField4.getText()+"';";
+            
+//            st.executeUpdate(sql);
+            
+            String newsql = "UPDATE user SET revenue = revenue + "+jTextField3.getText()+" WHERE username='"+jTextField1.getText()+"';";
+            
+            System.out.println(newsql);
+            
+            st.executeUpdate(newsql);
             
             JOptionPane.showMessageDialog(null, "Successfully Updated");
+            
             setVisible(false);
             
             
@@ -164,6 +182,10 @@ public class deliverydonePanel extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,9 +231,11 @@ public class deliverydonePanel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
