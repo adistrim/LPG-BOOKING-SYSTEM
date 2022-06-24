@@ -147,6 +147,11 @@ public String UserN = Home_Page.usernametextfield.getText();
         jMenu2.setText("My Orders");
         jMenu2.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jMenu2.setMargin(new java.awt.Insets(3, 30, 3, 30));
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/i01_complain.png")); // NOI18N
@@ -212,16 +217,15 @@ public String UserN = Home_Page.usernametextfield.getText();
                 String pending = "pending";
                
                 try{
-//                        Connection con = ConnectionProvider.getCon();
                     PreparedStatement ps = con.prepareStatement("insert into "+UserN+" (category, address, delivery) value(?,?,?)");
                     ps.setString(1, category);
                     ps.setString(2, address);
                     ps.setString(3, pending);
-//                    ps.executeUpdate();
+                    ps.executeUpdate();
                     
-                    PreparedStatement newps = con.prepareStatement("update user set lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
+                    PreparedStatement newps = con.prepareStatement("update user set revenue  = 0, lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
 //                    newps.setString(1, pending);
-//                    newps.executeUpdate();
+                    newps.executeUpdate();
                     
                     System.out.println(newps);
 
@@ -299,6 +303,12 @@ public String UserN = Home_Page.usernametextfield.getText();
         // TODO add your handling code here:
         new UserProfile(UserN).setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        new UserOrderList().setVisible(true);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
