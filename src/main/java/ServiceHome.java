@@ -45,12 +45,13 @@ public static String username;
                         while(newrs.next()){
                             
                         String id = newrs.getString("id");
+                        String date = newrs.getString("date");
                         String complain = newrs.getString("complain");
                         String issuesolved = newrs.getString("issuesolved");
                         
                         if ("pending".equals(issuesolved)){
                         
-                            String tbData[] = {id,username,name,mobile,email,address,complain,issuesolved};
+                            String tbData[] = {id,date,username,name,mobile,email,address,complain,issuesolved};
                             DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
                             tblModel.addRow(tbData);
                             
@@ -102,11 +103,11 @@ public static String username;
 
             },
             new String [] {
-                "ID", "Username", "Name", "Mobile", "Email", "Address", "Issue", "Status"
+                "Order ID", "Date", "Username", "Name", "Mobile", "Email", "Address", "Issue", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

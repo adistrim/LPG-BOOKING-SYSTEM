@@ -21,7 +21,7 @@ public class ConnectionProvider {
             return null;
         }
     }
-
+    // table creation of username
     public void createUserSpecficTable(String tableName) throws SQLException {
         Connection conn = getCon();
         Statement stmt = conn.createStatement();
@@ -37,6 +37,22 @@ public class ConnectionProvider {
         " revenue           INT(255)                            NULL);", tableName);
         stmt.executeUpdate(sql);
         System.out.println("Created user specific table in given database...");
+        
+    }
+    
+    // table creation of workname
+     public void createworkerSpecficTable(String tableName) throws SQLException {
+        Connection conn = getCon();
+        Statement stmt = conn.createStatement();
+
+        String sql = String.format("CREATE TABLE IF NOT EXISTS %s (" +
+        " date              DATE                                NULL          , " +
+        " delivery          VARCHAR(255)                        NULL          , " +
+        " ID                INT                                 NULL          , " +
+        " address           VARCHAR(255)                        NULL          , " +
+        " revenue           INT(255)                            NULL);", tableName);
+        stmt.executeUpdate(sql);
+        System.out.println("Created WORKER specific table in given database...");
         
     }
 }

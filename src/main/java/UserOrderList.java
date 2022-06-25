@@ -28,6 +28,8 @@ public static String username = Home_Page.usernametextfield.getText();
             String sql = "select * from "+username+";";
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
+                
+                String date = rs.getString("date");
                 String id = rs.getString("id");
                 String category = rs.getString("category");
                 String delivery = rs.getString("delivery");
@@ -36,7 +38,7 @@ public static String username = Home_Page.usernametextfield.getText();
                 String complain = rs.getString("complain");
                 String issuesolved = rs.getString("issuesolved");
 
-                String tbData[] = {id,category,delivery,deliveredby,address,complain,issuesolved};
+                String tbData[] = {id,date,category,delivery,deliveredby,address,complain,issuesolved};
                 DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
                 tblModel.addRow(tbData);
                          
@@ -74,11 +76,11 @@ public static String username = Home_Page.usernametextfield.getText();
 
             },
             new String [] {
-                "Order ID", "Category", "Delivery status", "Delivered by", "Delivered Address", "Complain", "Issue Status"
+                "Order ID", "Date", "Category", "Delivery status", "Delivered by", "Delivered Address", "Complain", "Issue Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

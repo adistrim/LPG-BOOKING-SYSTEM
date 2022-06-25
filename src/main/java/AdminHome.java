@@ -41,12 +41,13 @@ public static String username;
                         ResultSet newrs = newst.executeQuery(newsql);
                         while(newrs.next()){
                         
+                        String date = newrs.getString("date");
                         String category = newrs.getString("category");
                         String delivery = newrs.getString("delivery");
                         
                         if ("pending".equals(delivery)){
                         
-                            String tbData[] = {username,name,mobile,email,address,category,delivery};
+                            String tbData[] = {date,username,name,mobile,email,address,category,delivery};
                             DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
                             tblModel.addRow(tbData);
                             
@@ -185,6 +186,11 @@ public static String username;
 
         jButton4.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jButton4.setText("Workers");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton6.setText("Logout");
@@ -386,11 +392,11 @@ public static String username;
 
             },
             new String [] {
-                "Username", "Name", "Mobile", "Email", "Address", "Category", "Status"
+                "Date", "Username", "Name", "Mobile", "Email", "Address", "Category", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -592,6 +598,12 @@ public static String username;
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new WorkerList().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

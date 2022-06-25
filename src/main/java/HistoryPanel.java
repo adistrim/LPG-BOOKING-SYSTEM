@@ -42,13 +42,14 @@ public static String username;
                         ResultSet newrs = newst.executeQuery(newsql);
                         while(newrs.next()){
                         
+                        String date = newrs.getString("date");
                         String category = newrs.getString("category");
                         String delivery = newrs.getString("delivery");
                         String deliveredby = newrs.getString("deliveredby");
                         String revenue = newrs.getString("revenue");
                         
                         
-                            String tbData[] = {username,name,mobile,email,address,category,delivery,deliveredby,revenue};
+                            String tbData[] = {date,username,name,mobile,email,address,category,delivery,deliveredby,revenue};
                             DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
                             tblModel.addRow(tbData);
                          
@@ -91,11 +92,11 @@ public static String username;
 
             },
             new String [] {
-                "Username", "Name", "Mobile", "Email", "Address", "Category", "Delivey", "Delivered by", "Revenue"
+                "Date", "Username", "Name", "Mobile", "Email", "Address", "Category", "Delivey", "Delivered by", "Revenue"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

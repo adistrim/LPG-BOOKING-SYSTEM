@@ -3,6 +3,7 @@ import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.time.LocalDate;
 
 //import Pakage.Home_Page.*;
 
@@ -19,12 +20,14 @@ import java.sql.*;
 public class UserHome extends javax.swing.JFrame {
 
 public String UserN = Home_Page.usernametextfield.getText();
+public static LocalDate date = java.time.LocalDate.now();
 
     /**
      * Creates new form UserHome
      */
     public UserHome() {
         initComponents();
+        
     }
 
     public UserHome(String username) {
@@ -33,6 +36,7 @@ public String UserN = Home_Page.usernametextfield.getText();
         jLabel5.setVisible(false);
         jLabel6.setVisible(false);
         im_5kg.setVisible(true);
+        jLabel3.setText("150");
         
         try{
             Connection con = ConnectionProvider.getCon();
@@ -64,6 +68,8 @@ public String UserN = Home_Page.usernametextfield.getText();
         jLabel5 = new javax.swing.JLabel();
         im_5kg = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -100,9 +106,9 @@ public String UserN = Home_Page.usernametextfield.getText();
         });
         jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
-        jLabel3.setText("Category");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel3.setText("any");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 60, 20));
 
         jLabel4.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
         jLabel4.setText("LPG Booking");
@@ -116,6 +122,14 @@ public String UserN = Home_Page.usernametextfield.getText();
 
         jLabel6.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/19_kg.png")); // NOI18N
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
+        jLabel7.setText("Category");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel8.setText("Price -");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 60, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 420, 410));
 
@@ -221,10 +235,11 @@ public String UserN = Home_Page.usernametextfield.getText();
                 String pending = "pending";
                
                 try{
-                    PreparedStatement ps = con.prepareStatement("insert into "+UserN+" (category, address, delivery) value(?,?,?)");
+                    PreparedStatement ps = con.prepareStatement("insert into "+UserN+" (category, address, delivery, date) value(?,?,?,?)");
                     ps.setString(1, category);
                     ps.setString(2, address);
                     ps.setString(3, pending);
+                    ps.setString(4, date.toString());
                     ps.executeUpdate();
                     
                     PreparedStatement newps = con.prepareStatement("update user set revenue  = 0, lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
@@ -257,18 +272,21 @@ public String UserN = Home_Page.usernametextfield.getText();
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        if(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) == "5 kg"){
+        if("5 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
             im_5kg.setVisible(true);
             jLabel5.setVisible(false);
             jLabel6.setVisible(false);
-        } if(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) == "14.2 kg"){
+            jLabel3.setText("150");
+        } if("14.2 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
             jLabel5.setVisible(true);
             jLabel6.setVisible(false);
             im_5kg.setVisible(false);
-        } if(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) == "19 kg"){
+            jLabel3.setText("400");
+        } if("19 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
             jLabel6.setVisible(true);
             jLabel5.setVisible(false);
             im_5kg.setVisible(false);
+            jLabel3.setText("600");
         }
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -364,6 +382,8 @@ public String UserN = Home_Page.usernametextfield.getText();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
