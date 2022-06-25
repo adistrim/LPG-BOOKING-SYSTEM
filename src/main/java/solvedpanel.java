@@ -135,7 +135,7 @@ public class solvedpanel extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        if("Completed".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
+        if("Solved".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
             jLabel5.setVisible(true);
         } else {
             jLabel5.setVisible(false);
