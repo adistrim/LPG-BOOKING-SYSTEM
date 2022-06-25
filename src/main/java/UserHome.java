@@ -1,6 +1,5 @@
 
 import java.awt.HeadlessException;
-import java.security.NoSuchAlgorithmException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.*;
@@ -158,6 +157,11 @@ public String UserN = Home_Page.usernametextfield.getText();
         jMenu3.setText("Complain");
         jMenu3.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jMenu3.setMargin(new java.awt.Insets(3, 30, 3, 30));
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/logout.png")); // NOI18N
@@ -309,6 +313,11 @@ public String UserN = Home_Page.usernametextfield.getText();
         setVisible(false);
         new UserOrderList().setVisible(true);
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        new ComplainPanel().setVisible(true);
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
