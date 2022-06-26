@@ -359,16 +359,11 @@ public static LocalDate date = java.time.LocalDate.now();
                     default -> {
                     }
                 }
-
             }
-
         }
         catch(HeadlessException | SQLException e){
             JOptionPane.showConfirmDialog(null, e);
         }
-        
-        
-        
         setVisible(false);
         new Stock().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed

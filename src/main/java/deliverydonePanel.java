@@ -1,8 +1,12 @@
+
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /*
@@ -15,6 +19,12 @@ import javax.swing.JOptionPane;
  * @author aditya
  */
 public class deliverydonePanel extends javax.swing.JFrame {
+public static LocalDate date = java.time.LocalDate.now();
+public static String kg5;
+        public static String kg14;
+                public static String kg19;
+                public static String revenue;
+                public static String rev;
 
     /**
      * Creates new form deliverydonePanel
@@ -163,25 +173,101 @@ public class deliverydonePanel extends javax.swing.JFrame {
         
         try {
             
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs","root","adiadmin123");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "adiadmin123");
             Statement st = con.createStatement();
-            String sql = "update "+jTextField1.getText()+" set delivery='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', deliveredby='"+jTextField2.getText()+"', revenue='"+jTextField3.getText()+"' where ID='"+jTextField4.getText()+"';";
             
-            st.executeUpdate(sql);
+            ResultSet rs = st.executeQuery("select * from "+jTextField1.getText()+";");
             
-            String newsql = "UPDATE user SET revenue = revenue + "+jTextField3.getText()+", lastdelivery = '"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"' WHERE username='"+jTextField1.getText()+"';";
+            while(rs.next()){
+                
+                String category = rs.getString("category");
+                
+                System.out.println(category);
+                
+                PreparedStatement newps = con.prepareStatement("update "+jTextField1.getText()+" set delivery='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', deliveredby='"+jTextField2.getText()+"', revenue='"+jTextField3.getText()+"' where ID='"+jTextField4.getText()+"';");
             
-            System.out.println(newsql);
+                newps.executeUpdate();
+                
+                // collecting revenue
+                ResultSet rst = st.executeQuery("select * from user where username = '"+jTextField1.getText()+"';");
+                while (rst.next()){
+                    revenue = rst.getString("revenue");
+                    System.out.println("revenue - "+revenue);
+                    rev = jTextField3.getText();
+                    int reve = Integer.parseInt(revenue);
+                    System.out.println("reve - "+reve);
+                    int reven = Integer.parseInt(rev);
+                    System.out.println("reven - "+reven);
+                    int revenu = reve + reven;
+                    System.out.println(revenu);
+                
             
-            st.executeUpdate(newsql);
+                String newsql = "UPDATE user SET revenue = "+revenu+", lastdelivery = '"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"' WHERE username = '"+jTextField1.getText()+"';";
             
-            JOptionPane.showMessageDialog(null, "Successfully Updated");
+                st.executeUpdate(newsql);
+                
+                System.out.println(newsql);
+                
+                }
+                    ResultSet newrs = st.executeQuery("select * from stock;");
+                    System.out.println(newrs);
+                    while(newrs.next()){
+                        
+                        kg5 = rs.getString("5kg");
+                        System.out.println(kg5);
+                        
+                        kg14 = rs.getString("14kg");
+                        System.out.println(kg14);
+                        
+                        kg19 = rs.getString("19kg");
+                        System.out.println(kg19);
+                        
+                        int k5 = Integer.parseInt(kg5);
+                        int k14 = Integer.parseInt(kg14);
+                        int k19 = Integer.parseInt(kg19);
+                        
+                        
+                        
+                        
+                        
+                    
+                        if (category.equals("5 kg")){
+                                    
+                                    int result1 = k5 - 1;
+                                    PreparedStatement ps = con.prepareStatement("update stock set 5kg = "+result1+";");
+                                    ps.executeUpdate();
+                                    JOptionPane.showMessageDialog(null, "Successfully Updated");
+                                    
+                        }if (category.equals("14.2 kg")){
+                            
+                                    int result2 = k14 - 1;
+                                    PreparedStatement ps = con.prepareStatement("update stock set 14kg = "+result2+";");
+                                    ps.executeUpdate();
+                                JOptionPane.showMessageDialog(null, "Successfully Updated");
+                                
+                        }if (category.equals("19 kg")){
+                            
+                                    int result3 = k19 - 1;
+                                    PreparedStatement ps = con.prepareStatement("update stock set 19kg = "+result3+";");
+                                    ps.executeUpdate();
+                                    JOptionPane.showMessageDialog(null, "Successfully Updated");
+                                    
+                                } else {
+                        
+                        }
+                        
+                    }
             
+            
+            
+            
+            }
             setVisible(false);
             
         } catch (HeadlessException | SQLException e){
         
         }
+        
         
         
         
