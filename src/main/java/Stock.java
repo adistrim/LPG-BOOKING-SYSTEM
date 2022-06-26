@@ -7,13 +7,43 @@
  *
  * @author aditya
  */
-public class Stock extends javax.swing.JFrame {
+import java.awt.HeadlessException;
+import java.security.NoSuchAlgorithmException;
+import javax.swing.*;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
+public class Stock extends javax.swing.JFrame {
+public static LocalDate date = java.time.LocalDate.now();
     /**
      * Creates new form Stock
      */
     public Stock() {
         initComponents();
+        try {
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+            Statement st = con.createStatement();
+            String sql = "select * from stock;";
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                String date1 = rs.getString("date");
+                String kg5 = rs.getString("5kg");
+                String kg14 = rs.getString("14kg");
+                String kg19 = rs.getString("19kg");
+                
+                String tbData[] = {date1,kg5,kg14,kg19};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                tblModel.addRow(tbData);
+                            
+                        
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -40,6 +70,10 @@ public class Stock extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(135, 125));
@@ -149,7 +183,7 @@ public class Stock extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton7.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jButton7.setText("Add User");
+        jButton7.setText("Update");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -161,11 +195,11 @@ public class Stock extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Username", "Name", "Mobile", "email", "Address"
+                "Last Arrived", "5 kg", "14 kg", "19 kg"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -174,8 +208,19 @@ public class Stock extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel7.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Georgia", 1, 36)); // NOI18N
         jLabel7.setText("Stock");
+
+        jLabel8.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        jLabel8.setText("Category -");
+
+        jComboBox1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 kg", "14 kg", "19 kg" }));
+
+        jLabel9.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        jLabel9.setText("Unit -");
+
+        jTextField1.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -187,10 +232,21 @@ public class Stock extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton7)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField1))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,10 +254,18 @@ public class Stock extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(jButton7)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,8 +328,49 @@ public class Stock extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select *from stock;");
+            while(rs.next()){
+                String kg5 = rs.getString("5kg");
+                String kg14 = rs.getString("14kg");
+                String kg19 = rs.getString("19kg");
+            
+                switch (jComboBox1.getItemAt(jComboBox1.getSelectedIndex())) {
+                    case "5 kg" ->                         {
+                            PreparedStatement ps = con.prepareStatement("update stock set 5kg = "+kg5+" + "+jTextField1.getText()+",date =  '"+date.toString()+"';");
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null, "Successfully Updated");
+                        }
+                    case "14 kg" ->                         {
+                            PreparedStatement ps = con.prepareStatement("update stock set 14kg = "+kg14+" + "+jTextField1.getText()+",date =  '"+date.toString()+"';");
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null, "Successfully Updated");
+                        }
+                    case "19 kg" ->                         {
+                            PreparedStatement ps = con.prepareStatement("update stock set 19kg = "+kg19+" + "+jTextField1.getText()+",date =  '"+date.toString()+"';");
+                            ps.executeUpdate();
+                            JOptionPane.showMessageDialog(null, "Successfully Updated");
+                        }
+                    default -> {
+                    }
+                }
+
+            }
+
+        }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showConfirmDialog(null, e);
+        }
+        
+        
+        
         setVisible(false);
-        new addnewuser().setVisible(true);
+        new Stock().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
@@ -312,12 +417,16 @@ public class Stock extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

@@ -226,7 +226,7 @@ public static LocalDate date = java.time.LocalDate.now();
         try{
             Connection con = ConnectionProvider.getCon();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from user where username='"+UserN+"'");
+            ResultSet rs = st.executeQuery("select * from user where username='"+UserN+"';");
             while(rs.next()){
                 
 //                String date = rs.getString(2);
