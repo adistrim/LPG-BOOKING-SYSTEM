@@ -21,7 +21,6 @@ public class WorkerList extends javax.swing.JFrame {
      */
     public WorkerList() {
         initComponents();
-        
         try {
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
             Statement st = con.createStatement();
@@ -35,16 +34,17 @@ public class WorkerList extends javax.swing.JFrame {
                 String address = rs.getString("address");
                 String job = rs.getString("job");
                 
+                
                 String tbData[] = {date,workname,name,contact,address,job};
                 DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
                 tblModel.addRow(tbData);
                             
-                        
             }
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        
         
        
     }
@@ -75,9 +75,6 @@ public class WorkerList extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jButton13 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -221,20 +218,6 @@ public class WorkerList extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jButton12.setText("Search");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        jLabel14.setText("Short by -");
-
-        jComboBox1.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Delivery Guy", "Service Guy", "Driver" }));
-
         jButton13.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton13.setText("Add worker");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -255,18 +238,13 @@ public class WorkerList extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(217, 217, 217)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton12)
-                        .addGap(18, 18, 18)
                         .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
                         .addComponent(jButton13)))
                 .addContainerGap())
         );
@@ -277,11 +255,8 @@ public class WorkerList extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12)
                     .addComponent(jButton11)
                     .addComponent(jButton13))
                 .addGap(18, 18, 18)
@@ -371,10 +346,6 @@ public class WorkerList extends javax.swing.JFrame {
         new vehiclelist().setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
-
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
@@ -419,7 +390,6 @@ public class WorkerList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -427,10 +397,8 @@ public class WorkerList extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

@@ -243,7 +243,6 @@ public static LocalDate date = java.time.LocalDate.now();
                     ps.executeUpdate();
                     
                     PreparedStatement newps = con.prepareStatement("update user set revenue  = 0, lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
-//                    newps.setString(1, pending);
                     newps.executeUpdate();
                     
                     System.out.println(newps);
@@ -254,13 +253,7 @@ public static LocalDate date = java.time.LocalDate.now();
 
                     }
                     catch(HeadlessException | SQLException e){
-                    JOptionPane.showConfirmDialog(null, e);
                     }
-                
-                
-                
-                
-                
             }
         }
         catch(SQLException e){

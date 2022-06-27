@@ -230,7 +230,9 @@ public class AddWorker extends javax.swing.JFrame {
         String mobile = mobiletext.getText();
         String address = addresstext.getText();
         String job = jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+        
         try{
+            
             Connection con = ConnectionProvider.getCon();
             PreparedStatement ps = con.prepareStatement("insert into worker value(?,?,?,?,?,?)");
             ps.setString(1, date.toString());
@@ -241,14 +243,19 @@ public class AddWorker extends javax.swing.JFrame {
             ps.setString(6, job);
             
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Successfully Updated");
-
+            
             ConnectionProvider cp = new ConnectionProvider();
             cp.createworkerSpecficTable(workname);
+            
+            PreparedStatement pst = con.prepareStatement("insert into "+workname+" (mobile) value(?)");
+            pst.setString(1, mobile);
+            pst.executeUpdate();
+            
+            
+            JOptionPane.showMessageDialog(null, "Successfully Updated");
 
         }
         catch(HeadlessException | SQLException e){
-            JOptionPane.showConfirmDialog(null, e);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

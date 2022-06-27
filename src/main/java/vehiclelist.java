@@ -26,6 +26,7 @@ public static LocalDate date1 = java.time.LocalDate.now();
      */
     public vehiclelist() {
         initComponents();
+        
         try {
             Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
             Statement st = con.createStatement();
@@ -38,35 +39,22 @@ public static LocalDate date1 = java.time.LocalDate.now();
                 String number = rs.getString("number");
                 String driver = rs.getString("driver");
                 String category = rs.getString("category");
+               
                 
-                System.out.println(date+model+number+category+ " " +driver);
-                
-                try{
             
-                        Connection newcon =DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
-                        Statement newst = newcon.createStatement();
-                        String newsql = "select * from worker;";
-                        ResultSet newrs = newst.executeQuery(newsql);
-                        while(newrs.next()){
+                Connection newcon =DriverManager.getConnection("jdbc:mysql://localhost:3306/lbs?zeroDateTimeBehavior=CONVERT_TO_NULL","root","adiadmin123");
+                Statement newst = newcon.createStatement();
+                String newsql = ("select * from "+driver+";");
+                ResultSet newrs = newst.executeQuery(newsql);
+                while(newrs.next()){
                             
-                            String contact = newrs.getString("contact");
+                String contact = newrs.getString("mobile");
                             
-                            
-                            
-                            
-                                String tbData[] = {date,model,number,driver,category,contact};
-                                
-                                DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
-                                
-                                tblModel.addRow(tbData);
+                String tbData[] = {date,model,number,driver,category,contact};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
+                tblModel.addRow(tbData);
                             
                             
-                        }
-                    }
-                
-                catch (SQLException e){
-                System.out.println(e.getMessage());
-                
                 }
             }
         }
@@ -106,6 +94,9 @@ public static LocalDate date1 = java.time.LocalDate.now();
         jLabel13 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton12 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -286,11 +277,30 @@ public static LocalDate date1 = java.time.LocalDate.now();
 
         jTextField5.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
 
+        jButton11.setBackground(new java.awt.Color(255, 234, 234));
         jButton11.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton11.setText("Remove");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jLabel2.setText("Driver -");
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setBackground(new java.awt.Color(255, 234, 234));
+        jButton12.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
+        jButton12.setText("Change Driver");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
             }
         });
 
@@ -307,29 +317,40 @@ public static LocalDate date1 = java.time.LocalDate.now();
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 479, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                .addGap(97, 97, 97))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton11)
-                .addGap(135, 135, 135))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField4)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton12)
+                        .addGap(145, 145, 145)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jButton11)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                        .addGap(97, 97, 97))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,12 +376,15 @@ public static LocalDate date1 = java.time.LocalDate.now();
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
-                    .addComponent(jButton11))
-                .addGap(32, 32, 32))
+                    .addComponent(jButton11)
+                    .addComponent(jButton12))
+                .addGap(31, 31, 31))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -602,6 +626,33 @@ public static LocalDate date1 = java.time.LocalDate.now();
         new WorkerList().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        try{
+            
+            String driver = jTextField2.getText();
+            String gaddi = jTextField5.getText();
+            
+            
+            Connection con = ConnectionProvider.getCon();
+            PreparedStatement ps = con.prepareStatement("update vehicle set driver = '"+driver+"' where number = '"+gaddi+"';");
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Successfully Updated");
+
+        }
+        catch(HeadlessException | SQLException e){
+            
+        }
+        
+        setVisible(false);
+        new vehiclelist().setVisible(true);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -641,6 +692,7 @@ public static LocalDate date1 = java.time.LocalDate.now();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -655,6 +707,7 @@ public static LocalDate date1 = java.time.LocalDate.now();
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -667,6 +720,7 @@ public static LocalDate date1 = java.time.LocalDate.now();
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;

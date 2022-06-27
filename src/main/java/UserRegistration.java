@@ -328,8 +328,6 @@ public class UserRegistration extends javax.swing.JFrame {
         }
         catch (NoSuchAlgorithmException e) {
         }
-        
-        
 
 //        setVisible(false);
 //        new saferegister().setVisible(true);

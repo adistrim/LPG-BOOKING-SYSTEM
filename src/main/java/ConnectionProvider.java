@@ -34,7 +34,8 @@ public class ConnectionProvider {
         " address           VARCHAR(255)                        NULL          , " +
         " complain          VARCHAR(255)                        NULL          , " +
         " issuesolved       VARCHAR(255)                        NULL          , " +
-        " revenue           INT(255)                            NULL);", tableName);
+        " revenue           INT(255)                            NULL          , " +
+        " date              DATE                                NULL);", tableName);
         stmt.executeUpdate(sql);
         System.out.println("Created user specific table in given database...");
         
@@ -50,7 +51,8 @@ public class ConnectionProvider {
         " delivery          VARCHAR(255)                        NULL          , " +
         " ID                INT                                 NULL          , " +
         " address           VARCHAR(255)                        NULL          , " +
-        " revenue           INT(255)                            NULL);", tableName);
+        " revenue           INT(255)                            NULL          , " +
+        " mobile           VARCHAR(255)                        NULL);", tableName);
         stmt.executeUpdate(sql);
         System.out.println("Created WORKER specific table in given database...");
         
