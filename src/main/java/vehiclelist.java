@@ -446,6 +446,11 @@ public static LocalDate date1 = java.time.LocalDate.now();
 
         jButton8.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jButton8.setText("Stock");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -558,6 +563,8 @@ public static LocalDate date1 = java.time.LocalDate.now();
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
+        new Issue().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -652,6 +659,12 @@ public static LocalDate date1 = java.time.LocalDate.now();
         setVisible(false);
         new vehiclelist().setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Stock().setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

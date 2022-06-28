@@ -2,6 +2,7 @@
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -103,6 +104,9 @@ public static String username = Home_Page.usernametextfield.getText();
             String sql = "update "+username+" set complain='"+jTextField2.getText()+"', issuesolved='pending' where ID='"+jTextField4.getText()+"';";
             
             st.executeUpdate(sql);
+            
+            PreparedStatement pst = con.prepareStatement("update user set lastdelivery  = 'pending' where username = '"+username+"';");
+            pst.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Thank you for making us aware of the issue.");
             

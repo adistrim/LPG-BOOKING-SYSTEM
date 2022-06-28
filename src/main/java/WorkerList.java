@@ -108,6 +108,11 @@ public class WorkerList extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jButton4.setText("Workers");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
         jButton6.setText("Logout");
@@ -134,6 +139,11 @@ public class WorkerList extends javax.swing.JFrame {
 
         jButton8.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jButton8.setText("Stock");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -317,6 +327,8 @@ public class WorkerList extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
+        new Issue().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -339,7 +351,7 @@ public class WorkerList extends javax.swing.JFrame {
 
         }
         catch(HeadlessException | SQLException e){
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showConfirmDialog(null, "Error");
         }
 
         setVisible(false);
@@ -351,6 +363,18 @@ public class WorkerList extends javax.swing.JFrame {
         setVisible(false);
         new AddWorker().setVisible(true);
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new WorkerList().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Stock().setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

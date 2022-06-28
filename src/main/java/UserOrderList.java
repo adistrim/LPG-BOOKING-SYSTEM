@@ -17,9 +17,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UserOrderList extends javax.swing.JFrame {
 public static String username = Home_Page.usernametextfield.getText();
+
     /**
      * Creates new form UserOrderList
      */
+
     public UserOrderList() {
         initComponents();
         try {

@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import java.awt.HeadlessException;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -53,8 +54,6 @@ public class addnewuser extends javax.swing.JFrame {
         addresstext = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/i01_screenshot-2022-06-14-at-1.29.10-pm.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +145,7 @@ public class addnewuser extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jButton2.setText("Next");
+        jButton2.setText("Register");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -310,23 +309,69 @@ public class addnewuser extends javax.swing.JFrame {
             String password = sp.getSHA(jPasswordField1.getText());
         try{
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?)");
+            Statement st = con.createStatement();
+            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?,?,?)");
             ps.setString(1, username);
             ps.setString(2, name);
             ps.setString(3, mobile);
             ps.setString(4, email);
             ps.setString(5, address);
             ps.setString(6, password);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Successfully Updated");
+            ps.setString(7, null);
+            ps.setString(8, null);
+            
+            JFrame  jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            int a = JOptionPane.showConfirmDialog(jf, "Confirm your details","Select", JOptionPane.YES_NO_OPTION);
+            if(a==0){
+                ResultSet rs = st.executeQuery("Select * from user;");
+                while (rs.next()){
+                    String un = rs.getString("username");  
+                    
+                    if (un.equals(username)){
+                        JOptionPane.showMessageDialog(null, "Username already taken");
+                    } else {
+                        
+                        ps.executeUpdate();
+                        
+                        ConnectionProvider cp = new ConnectionProvider();
+                cp.createUserSpecficTable(username);
+            
+                PreparedStatement pst = con.prepareStatement("update user set revenue  = 0 where username = '"+username+"';");
+                
+                pst.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Successfully Registered");
+                
+                setVisible(false);
+                new Home_Page().setVisible(true);
+                    
+                    
+                    
+                    }
+                }
+                
+                
+                
+                
+                
+
+                
+                
+            } else {
+            
+            }
+            
+            
+            
 
         }
-        catch(Exception e){
-            JOptionPane.showConfirmDialog(null, e);
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showConfirmDialog(null, "Error");
         }
-        } 
+        }
         catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            JOptionPane.showConfirmDialog(null, "Error");
         }
 //        setVisible(false);
 //        new admin_saferegister().setVisible(true);

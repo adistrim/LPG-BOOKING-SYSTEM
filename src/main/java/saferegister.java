@@ -8,6 +8,14 @@
  * @author aditya
  */
 import co.yogesh.Captcha;
+import java.awt.HeadlessException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class saferegister extends javax.swing.JFrame {
@@ -19,8 +27,7 @@ public class saferegister extends javax.swing.JFrame {
      */
     public saferegister() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        cap.setImageCaptcha(captcha);
+        
     }
 
     /**
@@ -44,12 +51,12 @@ public class saferegister extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        captcha = new javax.swing.JLabel();
-        Verify = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(135, 125));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,7 +101,7 @@ public class saferegister extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jButton2.setText("Next");
+        jButton2.setText("Register");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -109,15 +116,17 @@ public class saferegister extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("forget your password, to reset it again.");
 
-        Verify.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setFont(new java.awt.Font("Georgia", 1, 14)); // NOI18N
+        jButton3.setText("Skip");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerifyActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Enter Captcha");
+        jLabel4.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("If you don't want this then you can skip this step");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -146,15 +155,12 @@ public class saferegister extends javax.swing.JFrame {
                                 .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7)))))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(captcha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Verify, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4)))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(202, 202, 202))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,13 +179,11 @@ public class saferegister extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addGap(28, 28, 28)
-                .addComponent(captcha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -188,9 +192,9 @@ public class saferegister extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 620));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1170, 620));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/aditya/Documents/Netbeans/JKLU_LPG_Booking_system/src/main/java/images/jklu_night_blured.jpeg")); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1170, 620));
 
@@ -213,19 +217,38 @@ public class saferegister extends javax.swing.JFrame {
         new UserRegistration().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void VerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VerifyActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(cap.Validate(captcha, Verify.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Captcha Matched!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Wrong Captcha");
+        
+        String school = jTextField1.getText();
+        String nickname = jTextField2.getText();
+        
+       
+            
+        try{
+            Connection con = ConnectionProvider.getCon();
+            Statement st = con.createStatement();
+            PreparedStatement ps = con.prepareStatement("insert into user (school, nickname) values (?,?)");
+            ps.setString(1, school);
+            ps.setString(2, nickname);
+            ps.executeUpdate();
+            
+            setVisible(false);
+            new Home_Page().setVisible(true);
+
         }
+        catch(HeadlessException | SQLException e){
+            JOptionPane.showConfirmDialog(null, "Error");
+        }
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Home_Page().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,17 +286,16 @@ public class saferegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Verify;
-    private javax.swing.JLabel captcha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

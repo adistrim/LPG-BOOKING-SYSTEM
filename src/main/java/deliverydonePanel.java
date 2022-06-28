@@ -204,7 +204,7 @@ public class deliverydonePanel extends javax.swing.JFrame {
 
                     System.out.println("revenue -> "+reve);
 
-                    PreparedStatement pst = conn.prepareStatement("update user set revenue = "+reve+", lastdelivery = '"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"' where username = '"+jTextField1.getText()+"';");
+                    PreparedStatement pst = conn.prepareStatement("update user set revenue = "+reve+" where username = '"+jTextField1.getText()+"';");
                     pst.executeUpdate();
 
                     System.out.println(pst);
@@ -237,10 +237,13 @@ public class deliverydonePanel extends javax.swing.JFrame {
                     }
             
                     JOptionPane.showMessageDialog(null, "Updated Succesfully");
+                    
+                    setVisible(false);
+                    new deliverydonePanel().setVisible(true);
 
         }
         catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Found Exception");
+            JOptionPane.showMessageDialog(null, "Error");
         }
 
     }// GEN-LAST:event_jButton1ActionPerformed

@@ -9,9 +9,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.Random;
+import javax.swing.JFrame;
+
 
 public class UserRegistration extends javax.swing.JFrame {
-
+public static String un;
     private String a;
 
     /**
@@ -133,7 +135,7 @@ public class UserRegistration extends javax.swing.JFrame {
         });
 
         jButton2.setFont(new java.awt.Font("Georgia", 1, 13)); // NOI18N
-        jButton2.setText("Next");
+        jButton2.setText("Register");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -306,7 +308,8 @@ public class UserRegistration extends javax.swing.JFrame {
             String password = sp.getSHA(jPasswordField1.getText());
         try{
             Connection con = ConnectionProvider.getCon();
-            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?,?,?)");
+            Statement st = con.createStatement();
+            PreparedStatement ps = con.prepareStatement("insert into user value(?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1, username);
             ps.setString(2, name);
             ps.setString(3, mobile);
@@ -315,18 +318,61 @@ public class UserRegistration extends javax.swing.JFrame {
             ps.setString(6, password);
             ps.setString(7, null);
             ps.setString(8, null);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Successfully Updated");
+            ps.setString(9, null);
+            ps.setString(10, null);
+            
+            JFrame  jf = new JFrame();
+            jf.setAlwaysOnTop(true);
+            int a = JOptionPane.showConfirmDialog(jf, "Confirm your details","Select", JOptionPane.YES_NO_OPTION);
+            if(a==0){
+                ResultSet rs = st.executeQuery("Select * from user;");
+                while (rs.next()){
+                    un = rs.getString("username");  
+                }
+                    if (un.equals(username)){
+                        JOptionPane.showMessageDialog(null, "Username already taken");
+                    } else {
+                    
+                        ps.executeUpdate();
+                        
+                        ConnectionProvider cp = new ConnectionProvider();
+                cp.createUserSpecficTable(username);
+            
+                PreparedStatement pst = con.prepareStatement("update user set revenue  = 0 where username = '"+username+"';");
+                
+                pst.executeUpdate();
+                
+                
+                JOptionPane.showMessageDialog(null, "Successfully Registered");
+                
+                    setVisible(false);
+                new Home_Page().setVisible(true);
+                    
+                    }  
+                    
+                
+                
+                
+                
+                
+                
 
-            ConnectionProvider cp = new ConnectionProvider();
-            cp.createUserSpecficTable(username);
+                
+                
+            } else {
+            
+            }
+            
+            
+            
 
         }
         catch(HeadlessException | SQLException e){
-            JOptionPane.showConfirmDialog(null, e);
+            JOptionPane.showConfirmDialog(null, "Error");
         }
         }
         catch (NoSuchAlgorithmException e) {
+            JOptionPane.showConfirmDialog(null, "Error");
         }
 
 //        setVisible(false);

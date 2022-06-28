@@ -21,18 +21,22 @@ public class UserHome extends javax.swing.JFrame {
 
 public String UserN = Home_Page.usernametextfield.getText();
 public static LocalDate date = java.time.LocalDate.now();
-
+public static String address;
     /**
      * Creates new form UserHome
      */
     public UserHome() {
         initComponents();
-        
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
+        im_5kg.setVisible(true);
+        jLabel3.setText("150");
     }
 
     public UserHome(String username) {
         
         initComponents();
+        
         jLabel5.setVisible(false);
         jLabel6.setVisible(false);
         im_5kg.setVisible(true);
@@ -62,7 +66,7 @@ public static LocalDate date = java.time.LocalDate.now();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        selectLPG = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -97,14 +101,14 @@ public static LocalDate date = java.time.LocalDate.now();
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 111, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 kg", "14.2 kg", "19 kg" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        selectLPG.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
+        selectLPG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5 kg", "14.2 kg", "19 kg" }));
+        selectLPG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                selectLPGActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel2.add(selectLPG, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
         jLabel3.setText("any");
@@ -230,8 +234,8 @@ public static LocalDate date = java.time.LocalDate.now();
             while(rs.next()){
                 
 //                String date = rs.getString(2);
-                String category = jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
-                String address = rs.getString(5);
+                String category = UserHome.selectLPG.getItemAt(UserHome.selectLPG.getSelectedIndex());
+                address = rs.getString(5);
                 String pending = "pending";
                
                 try{
@@ -240,16 +244,20 @@ public static LocalDate date = java.time.LocalDate.now();
                     ps.setString(2, address);
                     ps.setString(3, pending);
                     ps.setString(4, date.toString());
-                    ps.executeUpdate();
                     
-                    PreparedStatement newps = con.prepareStatement("update user set revenue  = 0, lastdelivery = '"+"pending"+"'  where username = '"+UserN+"';");
-                    newps.executeUpdate();
+                    JFrame  jf = new JFrame();
+                    jf.setAlwaysOnTop(true);
+                    int a = JOptionPane.showConfirmDialog(jf, "Confrim order","Select", JOptionPane.YES_NO_OPTION);
+                    if(a==0){
+                        ps.executeUpdate();
                     
-                    System.out.println(newps);
-
-
-                    JOptionPane.showMessageDialog(null, "Successfully ordered");
+                        JOptionPane.showMessageDialog(null, "Successfully ordered");
+                    } else {
                     
+                    JOptionPane.showMessageDialog(null, "Order Cancelled");
+                    }
+                    setVisible(false);
+                    new Bill(address).setVisible(true);
 
                     }
                     catch(HeadlessException | SQLException e){
@@ -263,26 +271,26 @@ public static LocalDate date = java.time.LocalDate.now();
 //        new Home_Page().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void selectLPGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectLPGActionPerformed
         // TODO add your handling code here:
-        if("5 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
+        if("5 kg".equals(selectLPG.getItemAt(selectLPG.getSelectedIndex()))){
             im_5kg.setVisible(true);
             jLabel5.setVisible(false);
             jLabel6.setVisible(false);
             jLabel3.setText("150");
-        } if("14.2 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
+        } if("14.2 kg".equals(selectLPG.getItemAt(selectLPG.getSelectedIndex()))){
             jLabel5.setVisible(true);
             jLabel6.setVisible(false);
             im_5kg.setVisible(false);
             jLabel3.setText("400");
-        } if("19 kg".equals(jComboBox1.getItemAt(jComboBox1.getSelectedIndex()))){
+        } if("19 kg".equals(selectLPG.getItemAt(selectLPG.getSelectedIndex()))){
             jLabel6.setVisible(true);
             jLabel5.setVisible(false);
             im_5kg.setVisible(false);
             jLabel3.setText("600");
         }
 
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_selectLPGActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
@@ -368,7 +376,6 @@ public static LocalDate date = java.time.LocalDate.now();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel im_5kg;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -385,5 +392,6 @@ public static LocalDate date = java.time.LocalDate.now();
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public static javax.swing.JComboBox<String> selectLPG;
     // End of variables declaration//GEN-END:variables
 }

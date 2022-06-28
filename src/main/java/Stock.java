@@ -8,12 +8,9 @@
  * @author aditya
  */
 import java.awt.HeadlessException;
-import java.security.NoSuchAlgorithmException;
 import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class Stock extends javax.swing.JFrame {
@@ -132,6 +129,11 @@ public static LocalDate date = java.time.LocalDate.now();
 
         jButton10.setFont(new java.awt.Font("Georgia", 1, 24)); // NOI18N
         jButton10.setText("Stock");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -367,6 +369,12 @@ public static LocalDate date = java.time.LocalDate.now();
         setVisible(false);
         new Stock().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new Stock().setVisible(true);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments

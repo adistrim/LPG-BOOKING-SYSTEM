@@ -152,8 +152,13 @@ public class solvedpanel extends javax.swing.JFrame {
             String sql = "update "+jTextField1.getText()+" set issuesolved='"+jComboBox1.getItemAt(jComboBox1.getSelectedIndex())+"', complain='"+jTextField2.getText()+"' where ID='"+jTextField4.getText()+"';";
 
             st.executeUpdate(sql);
+            
+            PreparedStatement pst = con.prepareStatement("update user set lastdelivery  = 'solved' where username = '"+jTextField1.getText()+"';");
+            pst.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Successfully Updated");
+            
+            
 
             setVisible(false);
 
