@@ -343,10 +343,10 @@ public static String un;
                 pst.executeUpdate();
                 
                 
-                JOptionPane.showMessageDialog(null, "Successfully Registered");
+//                JOptionPane.showMessageDialog(null, "Successfully Registered");
                 
                     setVisible(false);
-                new Home_Page().setVisible(true);
+                new saferegister().setVisible(true);
                     
                     }  
                     
