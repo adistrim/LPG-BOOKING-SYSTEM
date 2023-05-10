@@ -11,6 +11,3 @@ The LPG Booking System is a complete management tool that allows users to book L
 
 # Usage
 Users can register and log in using the captcha verification. From there, they can book LPG cylinders, submit complaints, and track their deliveries. Administrators can access the dashboard to manage bookings and complaints, while delivery partners can use the delivery area to manage their deliveries.
-
-# License
-This project is licensed under the MIT License. See the LICENSE file for details.
